@@ -1,4 +1,4 @@
-name := "scala-app-template"
+name := "Test-Spark-Perf"
 
 version := "0.0"
 
