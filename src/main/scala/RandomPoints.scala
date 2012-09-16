@@ -5,8 +5,6 @@ import spark.SparkContext
 import spark.SparkContext._
 
 object RandomPoints {
-  val sc = new SparkContext("local","RandomClusteredPoints")
-  
   /**
    * Generates a random point where each element
    * is a value between -range to range
@@ -25,8 +23,8 @@ object RandomPoints {
    * @param range elements of generated centers are between -range to range
    * @param radius how widely spread each cluster is
    */
-  def generateClusteredPoints(numClusters: Int, numPoints: Int, dim: Int, range: Double, 
-    radius: Double) = {
+  def generateClusteredPoints(sc: SparkContext, numClusters: Int, numPoints: Int, 
+    dim: Int, range: Double, radius: Double) = {
 
     val numPartitions = 10
 
@@ -43,17 +41,17 @@ object RandomPoints {
     }  
   }
   
-  def generateClusteredPoints(numClusters: Int, numPoints: Int): spark.RDD[Vector] = {
-    generateClusteredPoints(numClusters,numPoints,10,100,10)
+  def generateClusteredPoints(sc: SparkContext, numClusters: Int, numPoints: Int): 
+    spark.RDD[Vector] = {
+    generateClusteredPoints(sc: SparkContext, numClusters,numPoints,10,10,1)
   }  
- 
+  
   def main(args: Array[String]) {
-    val numClusters = args(0).toInt
+    val sc = new SparkContext(args(0),"Random Points")
     val numPoints = args(1).toInt
     val dim = args(2).toInt
     val range = args(3).toDouble
-    val radius = args(4).toDouble
     val outputDir = args(5)
-    generateClusteredPoints(numClusters,numPoints,dim,range,radius).saveAsTextFile(outputDir)
+    generateClusteredPoints(sc,1,numPoints,dim,0,range).saveAsTextFile(outputDir)
   }
 }
