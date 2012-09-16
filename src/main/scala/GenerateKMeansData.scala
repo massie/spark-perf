@@ -9,7 +9,7 @@ object GenerateKMeansData {
   }
 
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"GenerateKMeansData")
+    val sc = new SparkContext(args(0),"GenerateKMeansData",System.getenv("SPARK_HOME"),List("Spark_Perf.jar"))
     val numPoints = args(1).toInt
     val numClusters = args(2).toInt
     val outputDir = args(3)

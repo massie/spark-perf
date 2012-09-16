@@ -6,12 +6,12 @@ import spark.SparkContext._
 
 object RandomStrings {
   /**
-   * Create an rdd of numPairs key-value pairs with approximately numKeys distinct keys
-   * @param keyLen length of key
-   * @param valueLen length of value
-   * @param numPairs approximate total number of pairs
-   * @param numKeys approximate number of distinct keys
-   */
+    * Create an rdd of numPairs key-value pairs with approximately numKeys distinct keys
+    * @param keyLen length of key
+    * @param valueLen length of value
+    * @param numPairs approximate total number of pairs
+    * @param numKeys approximate number of distinct keys
+    */
   def generatePairs(sc: SparkContext, keyLen: Int, valueLen: Int, numPairs: Int, numKeys: Int, numPartitions: Int): 
     spark.RDD[(String,String)] = {
 

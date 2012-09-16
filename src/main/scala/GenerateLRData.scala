@@ -19,7 +19,7 @@ object GenerateLRData {
   }
 
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"GenerateLRData")
+    val sc = new SparkContext(args(0),"GenerateLRData",System.getenv("SPARK_HOME"),List("Spark_Perf.jar"))
     val numPoints = args(1).toInt
     val outputDir = args(2)
     generatePointsToFile(sc,numPoints,outputDir)

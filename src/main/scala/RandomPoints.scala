@@ -6,23 +6,23 @@ import spark.SparkContext._
 
 object RandomPoints {
   /**
-   * Generates a random point where each element
-   * is a value between -range to range
-   */
+    * Generates a random point where each element
+    * is a value between -range to range
+    */
   def generatePoint(dim: Int, range: Double) = {
     Vector(dim, Int => Math.random * 2 * range - range)
   }
 
   /**
-   * Returns rdd of points around random centers.
-   * Points in a cluster are uniformly distributed.
-   *
-   * @param numClusters approximate number of clusters
-   * @param numPoints approximate total number of points
-   * @param dim number of dimensions for each point
-   * @param range elements of generated centers are between -range to range
-   * @param radius how widely spread each cluster is
-   */
+    * Returns rdd of points around random centers.
+    * Points in a cluster are uniformly distributed.
+    *
+    * @param numClusters approximate number of clusters
+    * @param numPoints approximate total number of points
+    * @param dim number of dimensions for each point
+    * @param range elements of generated centers are between -range to range
+    * @param radius how widely spread each cluster is
+    */
   def generateClusteredPoints(sc: SparkContext, numClusters: Int, numPoints: Int, 
     dim: Int, range: Double, radius: Double) = {
 

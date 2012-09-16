@@ -1,4 +1,4 @@
-name := "Test-Spark-Perf"
+name := "Spark_Perf"
 
 version := "0.0"
 
