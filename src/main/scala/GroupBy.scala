@@ -11,9 +11,9 @@ object GroupBy {
     */
   def runTest(sc: SparkContext, numPairs: Int, numKeys: Int, numTasks: Int): Double = {
     val pairs = RandomStrings.generatePairs(sc,10,10,numPairs,numKeys,numTasks).cache()
-    pairs.first()
+    pairs.count()
     val startTime = System.currentTimeMillis
-    pairs.groupByKey(numTasks).first()
+    pairs.groupByKey(numTasks).count()
     (System.currentTimeMillis - startTime) / 1000.0
   }
   
