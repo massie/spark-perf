@@ -18,7 +18,9 @@ object SortBy {
   }
   
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"Sort By",System.getenv("SPARK_HOME"),List("Spark_Perf.jar"))
+    val sparkHome = System.getenv("SPARK_HOME")
+    val jars = List("Spark_Perf.jar")
+    val sc = new SparkContext(args(0),"Sort By",sparkHome,jars)
     val numPairs = args(1).toInt
     val numKeys = args(2).toInt
     val numTasks = args(3).toInt

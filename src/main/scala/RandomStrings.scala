@@ -12,8 +12,12 @@ object RandomStrings {
     * @param numPairs approximate total number of pairs
     * @param numKeys approximate number of distinct keys
     */
-  def generatePairs(sc: SparkContext, keyLen: Int, valueLen: Int, numPairs: Int, numKeys: Int, numPartitions: Int): 
-    spark.RDD[(String,String)] = {
+  def generatePairs(sc: SparkContext, 
+                    keyLen: Int,
+                    valueLen: Int, 
+                    numPairs: Int, 
+                    numKeys: Int, 
+                    numPartitions: Int): spark.RDD[(String,String)] = {
 
     val rdd = sc.parallelize(1 to numPartitions,numPartitions).flatMap { partition =>
       var numPartitionPairs = numPairs/numPartitions

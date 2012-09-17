@@ -6,11 +6,13 @@ import spark.SparkContext._
   */
 object TestAll {
   val pairsKeys = List((1000000,100),
-                         (1000000,10000),
-                         (1000000,1000000))
+                       (1000000,10000),
+                       (1000000,1000000))
   
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"Test All",System.getenv("SPARK_HOME"),List("Spark_Perf.jar"))
+    val sparkHome = System.getenv("SPARK_HOME")
+    val jars = List("Spark_Perf.jar")
+    val sc = new SparkContext(args(0),"Test All",sparkHome,jars)
     val numTasks = args(1).toInt
     val scale = args(2).toInt
  
