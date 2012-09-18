@@ -1,3 +1,5 @@
+package spark.perf
+
 import spark.SparkContext
 import spark.SparkContext._
 
@@ -26,6 +28,7 @@ object SortBy {
     val numTasks = args(3).toInt
 
     val time = runTest(sc,numPairs,numKeys,numTasks)
+    sc.stop()
     println("SortBy: " + time + " seconds")
   }
 }

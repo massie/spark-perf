@@ -1,3 +1,5 @@
+package spark.perf
+
 import spark.SparkContext
 
 object GenerateKMeansData {
@@ -14,5 +16,6 @@ object GenerateKMeansData {
     val numClusters = args(2).toInt
     val outputDir = args(3)
     generatePointsToFile(sc,numPoints,numClusters,outputDir)
+    sc.stop()
   }
 }

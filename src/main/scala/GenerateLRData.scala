@@ -1,5 +1,6 @@
-import spark.SparkContext
+package spark.perf
 
+import spark.SparkContext
 
 object GenerateLRData {
   def generatePoints(sc: SparkContext, numPoints: Int) = {
@@ -23,5 +24,6 @@ object GenerateLRData {
     val numPoints = args(1).toInt
     val outputDir = args(2)
     generatePointsToFile(sc,numPoints,outputDir)
+    sc.stop()
   }
 }

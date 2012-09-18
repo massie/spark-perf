@@ -1,3 +1,5 @@
+package spark.perf
+
 import spark.SparkContext
 import spark.SparkContext._
 
@@ -29,6 +31,7 @@ object TestAll {
       SortBy.runTest(sc,numPairs,numKeys,numTasks)
     }.zip(sortByArgs)
     
+    sc.stop()
     sortByTimes.foreach { case (time,(numPairs,numKeys)) =>
       println("SortBy with " + numPairs + " pairs, " + numKeys + " keys: " + time + " seconds")
     }

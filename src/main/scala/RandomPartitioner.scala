@@ -1,3 +1,5 @@
+package spark.perf
+
 import scala.util.Random
 import spark.Partitioner
 

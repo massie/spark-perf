@@ -1,3 +1,5 @@
+package spark.perf
+
 import scala.util.Random
 import scala.math
 import spark.Partitioner
@@ -24,13 +26,12 @@ object RandomStrings {
       var numPartitionKeys = numKeys/numPartitions
 
       // generate the keys used
-      //val keys = new Array[String](numPartitionKeys)
       val keys = (0 until numPartitionKeys).map { i => Random.nextString(keyLen) }
       
       val pairs = new Array[(String,String)](numPartitionPairs)
-      for (i <- 0 until numPartitionPairs) {
+      (0 until numPartitionPairs).map { i =>
         val keyIndex = Random.nextInt(numPartitionKeys)
-	pairs(i) = (keys(keyIndex),Random.nextString(valueLen))
+	(keys(keyIndex),Random.nextString(valueLen))
       }
       pairs
     } partitionBy(new RandomPartitioner(numPartitions))
@@ -45,5 +46,6 @@ object RandomStrings {
     val numPartitions = args(3).toInt
     val outputDir = args(4)
     generatePairs(sc,10,5,numPairs,numKeys,numPartitions).saveAsTextFile(outputDir)
+    sc.stop()
   }
 }

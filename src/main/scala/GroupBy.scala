@@ -1,3 +1,5 @@
+package spark.perf
+
 import spark.SparkContext
 import spark.SparkContext._
 
@@ -26,7 +28,7 @@ object GroupBy {
     val numTasks = args(3).toInt
 
     val time = runTest(sc,numPairs,numKeys,numTasks)
-    
+    sc.stop()
     println("GroupBy: " + time + " seconds")
   }
 }

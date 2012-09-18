@@ -1,4 +1,6 @@
-import scala.Math
+package spark.perf
+
+import scala.math
 import scala.util.Random
 import spark.util.Vector
 import spark.SparkContext
@@ -10,7 +12,7 @@ object RandomPoints {
     * is a value between -range to range
     */
   def generatePoint(dim: Int, range: Double) = {
-    Vector(dim, Int => Math.random * 2 * range - range)
+    Vector(dim, Int => math.random * 2 * range - range)
   }
 
   /**
@@ -53,5 +55,6 @@ object RandomPoints {
     val range = args(3).toDouble
     val outputDir = args(5)
     generateClusteredPoints(sc,1,numPoints,dim,0,range).saveAsTextFile(outputDir)
+    sc.stop()
   }
 }
