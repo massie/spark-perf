@@ -7,9 +7,9 @@ object GenerateLRData {
     val positive = RandomPoints.generateClusteredPoints(sc, 1, numPoints/2)
     val negative = RandomPoints.generateClusteredPoints(sc, 1, numPoints/2)
     positive.map { point =>
-      (point,1)
+      (point, 1)
     } union negative.map { point =>
-      (point,-1)
+      (point, -1)
     }
   }
 
@@ -20,10 +20,12 @@ object GenerateLRData {
   }
 
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"GenerateLRData",System.getenv("SPARK_HOME"),List("Spark_Perf.jar"))
+    val sparkHome = System.getenv("SPARK_HOME")
+    val jars = List("Spark_Perf.jar")
+    val sc = new SparkContext(args(0), "GenerateLRData", sparkHome, jars) 
     val numPoints = args(1).toInt
     val outputDir = args(2)
-    generatePointsToFile(sc,numPoints,outputDir)
+    generatePointsToFile(sc, numPoints, outputDir)
     sc.stop()
   }
 }

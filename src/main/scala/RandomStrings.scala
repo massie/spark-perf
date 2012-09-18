@@ -14,24 +14,20 @@ object RandomStrings {
     * @param numPairs approximate total number of pairs
     * @param numKeys approximate number of distinct keys
     */
-  def generatePairs(sc: SparkContext, 
-                    keyLen: Int,
-                    valueLen: Int, 
-                    numPairs: Int, 
-                    numKeys: Int, 
-                    numPartitions: Int): spark.RDD[(String,String)] = {
+  def generatePairs(sc: SparkContext, keyLen: Int, valueLen: Int, numPairs: Int, 
+    numKeys: Int, numPartitions: Int): spark.RDD[(String, String)] = {
 
-    val rdd = sc.parallelize(1 to numPartitions,numPartitions).flatMap { partition =>
+    val rdd = sc.parallelize(1 to numPartitions, numPartitions).flatMap { partition =>
       var numPartitionPairs = numPairs/numPartitions
       var numPartitionKeys = numKeys/numPartitions
 
       // generate the keys used
       val keys = (0 until numPartitionKeys).map { i => Random.nextString(keyLen) }
       
-      val pairs = new Array[(String,String)](numPartitionPairs)
+      val pairs = new Array[(String, String)](numPartitionPairs)
       (0 until numPartitionPairs).map { i =>
         val keyIndex = Random.nextInt(numPartitionKeys)
-	(keys(keyIndex),Random.nextString(valueLen))
+	(keys(keyIndex), Random.nextString(valueLen))
       }
       pairs
     } partitionBy(new RandomPartitioner(numPartitions))
@@ -40,12 +36,12 @@ object RandomStrings {
   }
 
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"Random Strings")
+    val sc = new SparkContext(args(0), "Random Strings")
     val numPairs = args(1).toInt
     val numKeys = args(2).toInt
     val numPartitions = args(3).toInt
     val outputDir = args(4)
-    generatePairs(sc,10,5,numPairs,numKeys,numPartitions).saveAsTextFile(outputDir)
+    generatePairs(sc, 10, 5, numPairs, numKeys, numPartitions).saveAsTextFile(outputDir)
     sc.stop()
   }
 }

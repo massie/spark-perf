@@ -11,11 +11,13 @@ object GenerateKMeansData {
   }
 
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"GenerateKMeansData",System.getenv("SPARK_HOME"),List("Spark_Perf.jar"))
+    val sparkHome = System.getenv("SPARK_HOME")
+    val jars = List("Spark_Perf.jar")
+    val sc = new SparkContext(args(0), "GenerateKMeansData", sparkHome, jars)
     val numPoints = args(1).toInt
     val numClusters = args(2).toInt
     val outputDir = args(3)
-    generatePointsToFile(sc,numPoints,numClusters,outputDir)
+    generatePointsToFile(sc, numPoints, numClusters, outputDir)
     sc.stop()
   }
 }

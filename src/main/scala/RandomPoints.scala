@@ -31,30 +31,30 @@ object RandomPoints {
     val numPartitions = 10
 
     // Assuming a small number of clusters, so just generate centers locally
-    val centers = (0 until numClusters).map { i => generatePoint(dim,range) }
+    val centers = (0 until numClusters).map { i => generatePoint(dim, range) }
     
     sc.parallelize(1 to numPartitions, numPartitions).flatMap { partition =>
       val numPointsPerPartition = numPoints/numPartitions
       
       (0 until numPointsPerPartition).map { i =>
         val center = centers(Random.nextInt(numClusters))
-        center + generatePoint(dim,radius)
+        center + generatePoint(dim, radius)
       }
     }  
   }
   
   def generateClusteredPoints(sc: SparkContext, numClusters: Int, numPoints: Int): 
     spark.RDD[Vector] = {
-    generateClusteredPoints(sc: SparkContext, numClusters,numPoints,10,10,1)
+    generateClusteredPoints(sc: SparkContext, numClusters, numPoints, 10, 10, 1)
   }  
   
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0),"Random Points")
+    val sc = new SparkContext(args(0), "Random Points")
     val numPoints = args(1).toInt
     val dim = args(2).toInt
     val range = args(3).toDouble
     val outputDir = args(5)
-    generateClusteredPoints(sc,1,numPoints,dim,0,range).saveAsTextFile(outputDir)
+    generateClusteredPoints(sc, 1, numPoints, dim, 0, range).saveAsTextFile(outputDir)
     sc.stop()
   }
 }

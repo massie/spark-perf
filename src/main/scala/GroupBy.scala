@@ -12,7 +12,7 @@ object GroupBy {
     * @param numTasks number of tasks to use
     */
   def runTest(sc: SparkContext, numPairs: Int, numKeys: Int, numTasks: Int): Double = {
-    val pairs = RandomStrings.generatePairs(sc,10,10,numPairs,numKeys,numTasks).cache()
+    val pairs = RandomStrings.generatePairs(sc, 10, 10, numPairs, numKeys, numTasks).cache()
     pairs.count()
     val startTime = System.currentTimeMillis
     pairs.groupByKey(numTasks).count()
@@ -22,7 +22,7 @@ object GroupBy {
   def main(args: Array[String]) {
     val sparkHome = System.getenv("SPARK_HOME")
     val jars = List("Spark_Perf.jar")
-    val sc = new SparkContext(args(0),"GroupBy",sparkHome,jars)
+    val sc = new SparkContext(args(0), "GroupBy", sparkHome, jars)
     val numPairs = args(1).toInt
     val numKeys = args(2).toInt
     val numTasks = args(3).toInt
