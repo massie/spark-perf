@@ -2,7 +2,7 @@ package spark.perf
 
 import scala.util.Random
 import scala.math
-import spark.Partitioner
+import spark.HashPartitioner
 import spark.SparkContext
 import spark.SparkContext._
 
@@ -24,12 +24,11 @@ object RandomStrings {
       // generate the keys used
       val keys = (0 until numPartitionKeys).map { i => Random.nextString(keyLen) }
       
-      val pairs = new Array[(String, String)](numPartitionPairs)
       (0 until numPartitionPairs).map { i =>
         val keyIndex = Random.nextInt(numPartitionKeys)
 	(keys(keyIndex), Random.nextString(valueLen))
       }
-      pairs
+      
     } partitionBy(new RandomPartitioner(numPartitions))
 
     rdd
