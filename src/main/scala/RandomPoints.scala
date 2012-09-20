@@ -49,7 +49,9 @@ object RandomPoints {
   }  
   
   def main(args: Array[String]) {
-    val sc = new SparkContext(args(0), "Random Points")
+    val sparkHome = System.getenv("SPARK_HOME")
+    val jars = List(System.getenv("SPARK_PERF"))
+    val sc = new SparkContext(args(0), "Random Points", sparkHome, jars)
     val numPoints = args(1).toInt
     val dim = args(2).toInt
     val range = args(3).toDouble
