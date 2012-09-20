@@ -3,8 +3,8 @@ package spark.perf
 import spark.SparkContext
 
 object GenerateKMeansData {
-  def generatePointsToFile(sc: SparkContext, numPoints: Int, numClusters: Int, outputDir: String) {
-    val points = RandomPoints.generateClusteredPoints(sc, numClusters, numPoints, 10, 100, 1)
+  def generatePointsToFile(sc: SparkContext, numPoints: Int, numClusters: Int, numPartitions: Int, outputDir: String) {
+    val points = RandomPoints.generateClusteredPoints(sc, numClusters, numPoints, 10, 100, 1, numPartitions)
     points.map { point =>
       point.elements.mkString(" ")
     }.saveAsTextFile(outputDir)
@@ -16,8 +16,9 @@ object GenerateKMeansData {
     val sc = new SparkContext(args(0), "GenerateKMeansData", sparkHome, jars)
     val numPoints = args(1).toInt
     val numClusters = args(2).toInt
-    val outputDir = args(3)
-    generatePointsToFile(sc, numPoints, numClusters, outputDir)
+    val numPartitions = args(3).toInt
+    val outputDir = args(4)
+    generatePointsToFile(sc, numPoints, numClusters, numPartitions, outputDir)
     sc.stop()
   }
 }

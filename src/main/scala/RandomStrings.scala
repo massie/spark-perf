@@ -8,7 +8,8 @@ import spark.SparkContext._
 
 object RandomStrings {
   def generateString(len: Int) = {
-    (0 until len).map (i => Random.nextPrintableChar) mkString(" ")
+    //generates a more readable string than Random.nextString
+    (0 until len).map (i => Random.nextPrintableChar) mkString("")
   }
   /**
     * Create an rdd of numPairs key-value pairs with approximately numKeys distinct keys
