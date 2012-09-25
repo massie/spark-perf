@@ -7,9 +7,9 @@ import spark.SparkContext._
   * with a bunch of different arguments.
   */
 object TestAll {
-  val pairsKeys = List((1000000, 100),
-                       (1000000, 10000),
-                       (1000000, 1000000))
+  val pairsKeys = List((10000, 10),
+                       (10000, 100),
+                       (10000, 10000))
   
   def main(args: Array[String]) {
     val sparkHome = System.getenv("SPARK_HOME")
@@ -23,10 +23,12 @@ object TestAll {
     }
     val sortByArgs = groupByArgs
 
+    GroupBy.warmup(sc)
     val groupByTimes = groupByArgs.map { case (numPairs, numKeys) =>
       GroupBy.runTest(sc, numPairs, numKeys, numTasks)
     }.zip(groupByArgs)
- 
+
+    SortBy.warmup(sc)
     val sortByTimes = sortByArgs.map { case (numPairs, numKeys) =>
       SortBy.runTest(sc, numPairs, numKeys, numTasks)
     }.zip(sortByArgs)

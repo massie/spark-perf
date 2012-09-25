@@ -4,6 +4,14 @@ import spark.SparkContext
 import spark.SparkContext._
 
 object SortBy {
+
+  def warmup(sc: SparkContext) {
+    val pairs = RandomStrings.generatePairs(sc, 10, 10, 1000, 100, 10).cache()
+    (0 until 5).foreach { x =>
+      pairs.sortByKey().count()
+    }
+  }
+
   /**
     * Returns time in seconds to perform sortByKey transformation
     * on a set of randomly generated key-value pairs.

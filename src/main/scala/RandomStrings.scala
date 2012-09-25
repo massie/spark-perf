@@ -29,7 +29,7 @@ object RandomStrings {
       val keys = (0 until numPartitionKeys).map { i => generateString(keyLen) }
       
       (0 until numPartitionPairs).map { i =>
-        val keyIndex = Random.nextInt(numPartitionKeys)
+        val keyIndex = if (i < numPartitionKeys) i else Random.nextInt(numPartitionKeys)
 	(Random.nextInt(), (keys(keyIndex), generateString(valueLen)))
       }
       

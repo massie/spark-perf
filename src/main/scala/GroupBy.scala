@@ -4,6 +4,14 @@ import spark.SparkContext
 import spark.SparkContext._
 
 object GroupBy {
+  
+  def warmup(sc: SparkContext) {
+    val pairs = RandomStrings.generatePairs(sc, 10, 10, 1000, 100, 10).cache()
+    (0 until 5).foreach { x =>
+      pairs.groupByKey(10).count()
+    }
+  }
+
   /**
     * Returns time in seconds to perform groupByKey transformation
     * on a set of randomly generated key-value pairs.
