@@ -7,9 +7,11 @@ import spark.SparkContext._
   * with a bunch of different arguments.
   */
 object TestAll {
-  val pairsKeys = List((10000, 10),
-                       (10000, 100),
-                       (10000, 10000))
+  val pairsKeys = List((100000, 10),
+                       (100000, 100),
+                       (1000000, 100),
+                       (1000000, 10000),
+                       (1000000, 1000000))
   
   def main(args: Array[String]) {
     val sparkHome = System.getenv("SPARK_HOME")
