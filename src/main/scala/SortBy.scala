@@ -34,7 +34,8 @@ object SortBy {
     val numPairs = args(1).toInt
     val numKeys = args(2).toInt
     val numTasks = args(3).toInt
-
+    
+    warmup(sc)
     val time = runTest(sc, numPairs, numKeys, numTasks)
     sc.stop()
     println("SortBy: " + time + " seconds")
