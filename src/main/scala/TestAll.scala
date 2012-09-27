@@ -14,10 +14,17 @@ class TestAll(sc: SparkContext) {
     SortBy.warmup(sc)
   }
 
+  def runWithArgs(numPairs : Int, numKeys : Int, numTasks : Int) {
+    val groupResult = GroupBy.runTest(sc, numPairs, numKeys, numTasks)
+    val sortResult = SortBy.runTest(sc, numPairs, numKeys, numTasks)
+    println("GroupBy " + (numPairs, numKeys, numTasks) + " : " + groupResult)
+    println("SortBy " + (numPairs, numKeys, numTasks) + " : " + sortResult)
+  }
+
   def run() {
     val numPairsList = List(10000, 100000, 1000000)
     val numKeysList = List(10, 100, 1000, 10000)
-    val numPartitionsList = List(10, 100, 1000)
+    val numPartitionsList = List(10)
     val argsList = (for (x <- numPairsList; y <- numKeysList; z <- numPartitionsList) 
       yield (x, y, z)).filter { case(x,y,z) => y >= z }
 
@@ -50,8 +57,13 @@ object TestAll {
     val sparkHome = System.getenv("SPARK_HOME")
     val sc = new SparkContext(args(0), "Test All", sparkHome, Nil)
     val test = new TestAll(sc)
+
     test.warmup()
-    test.run()
+    if (args.length == 4) {
+      test.runWithArgs(args(1).toInt, args(2).toInt, args(3).toInt)
+    } else {
+      test.run()
+    }
     test.stop()
   }
 
