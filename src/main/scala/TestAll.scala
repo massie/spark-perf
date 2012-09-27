@@ -2,45 +2,57 @@ package spark.perf
 
 import spark.SparkContext
 import spark.SparkContext._
+import scala.collection.mutable.Map
 
 /** For convenience of running groupby and sortby 
   * with a bunch of different arguments.
   */
+class TestAll(sc: SparkContext) {
+
+  def warmup() {
+    GroupBy.warmup(sc)
+    SortBy.warmup(sc)
+  }
+
+  def run() {
+    val numPairsList = List(10000, 100000, 1000000)
+    val numKeysList = List(10, 100, 1000, 10000)
+    val numPartitionsList = List(10, 100, 1000)
+    val argsList = (for (x <- numPairsList; y <- numKeysList; z <- numPartitionsList) 
+      yield (x, y, z)).filter { case(x,y,z) => y >= z }
+
+
+    val groupByResults = Map[Tuple4[Int, Int, Int, Int], Double]()
+    val sortByResults = Map[Tuple4[Int, Int, Int, Int], Double]()
+    for (i <- (1 to 5)) {
+      for (args <- argsList){
+        val key = (i, args._1, args._2, args._3)
+        println("Running " + key);
+        groupByResults(key) = GroupBy.runTest(sc, args._1, args._2, args._3)
+        sortByResults(key) = SortBy.runTest(sc, args._1, args._2, args._3)
+        println("SortBy " + key + " : " + sortByResults(key))
+        println("GroupBy " + key + " : " + groupByResults(key))
+      }
+    }
+
+    groupByResults.foreach { case(k,v) =>  println("GroupBy " + k + " : " + v) }
+    sortByResults.foreach { case(k,v) =>  println("GroupBy " + k + " : " + v) }
+  }
+
+  def stop() {
+    sc.stop()
+  }
+}
+
 object TestAll {
-  val pairsKeys = List((100000, 10),
-                       (100000, 100),
-                       (1000000, 100),
-                       (1000000, 10000),
-                       (1000000, 1000000))
-  
+
   def main(args: Array[String]) {
     val sparkHome = System.getenv("SPARK_HOME")
-    val jars = List(System.getenv("SPARK_PERF"))
-    val sc = new SparkContext(args(0), "Test All", sparkHome, jars)
-    val numTasks = args(1).toInt
-    val scale = args(2).toInt
- 
-    val groupByArgs = pairsKeys.map { case (numPairs, numKeys) =>
-      (numPairs * scale, numKeys * scale)
-    }
-    val sortByArgs = groupByArgs
-
-    GroupBy.warmup(sc)
-    val groupByTimes = groupByArgs.map { case (numPairs, numKeys) =>
-      GroupBy.runTest(sc, numPairs, numKeys, numTasks)
-    }.zip(groupByArgs)
-
-    SortBy.warmup(sc)
-    val sortByTimes = sortByArgs.map { case (numPairs, numKeys) =>
-      SortBy.runTest(sc, numPairs, numKeys, numTasks)
-    }.zip(sortByArgs)
-    
-    sc.stop()
-    sortByTimes.foreach { case (time, (numPairs, numKeys)) =>
-      println("SortBy with " + numPairs + " pairs, " + numKeys + " keys: " + time + " seconds")
-    }
-    groupByTimes.foreach { case (time,(numPairs,numKeys)) =>
-      println("GroupBy with " + numPairs + " pairs, " + numKeys + " keys: " + time + " seconds")
-    }   
+    val sc = new SparkContext(args(0), "Test All", sparkHome, Nil)
+    val test = new TestAll(sc)
+    test.warmup()
+    test.run()
+    test.stop()
   }
+
 }
