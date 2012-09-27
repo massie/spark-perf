@@ -22,8 +22,8 @@ class TestAll(sc: SparkContext) {
   }
 
   def run() {
-    val numPairsList = List(10000, 100000, 1000000)
-    val numKeysList = List(10, 100, 1000, 10000)
+    val numPairsList = List(100000, 1000000, 5000000, 10000000, 20000000)
+    val numKeysList = List(100, 1000, 10000)
     val numPartitionsList = List(10)
     val argsList = (for (x <- numPairsList; y <- numKeysList; z <- numPartitionsList) 
       yield (x, y, z)).filter { case(x,y,z) => y >= z }
