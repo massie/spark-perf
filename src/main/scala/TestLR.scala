@@ -62,7 +62,7 @@ object TestLR {
       println((N,D,R,numSlices) + " , " + time) 
     } else {
       val NList = List(10000, 100000, 1000000, 2000000, 5000000, 10000000)
-      val DList = List(5, 10, 20)
+      val DList = List(10)
       val RList = List(1)
       val numSlicesList = List(10, 50, 100, 1000)
 
