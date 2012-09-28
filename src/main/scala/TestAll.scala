@@ -43,7 +43,7 @@ class TestAll(sc: SparkContext) {
     }
 
     groupByResults.foreach { case(k,v) =>  println("GroupBy " + k + " : " + v) }
-    sortByResults.foreach { case(k,v) =>  println("GroupBy " + k + " : " + v) }
+    sortByResults.foreach { case(k,v) =>  println("SortBy " + k + " : " + v) }
   }
 
   def stop() {
