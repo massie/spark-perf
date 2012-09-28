@@ -39,17 +39,13 @@ object TestLR {
 
     // Initialize w to a random value
     var w = Vector(D, _ => 2 * rand.nextDouble - 1)
-    println("Initial w: " + w)
 
     for (i <- 1 to ITERATIONS) {
-      println("On iteration " + i)
       val gradient = points.map { p =>
         (1 / (1 + exp(-p.y * (w dot p.x))) - 1) * p.y * p.x
       }.reduce(_ + _)
       w -= gradient
     }
-
-    println("Final w: " + w)
     w
   }
 
@@ -80,7 +76,7 @@ object TestLR {
           val key = (i, n,d,r,numSlices)
           val time = testWithArgs(n,d,r,numSlices)
           results(key) = time
-          println((n,d,r,numSlices) + " , " + time) 
+          println(key + " , " + time) 
         }
       }
       results.foreach { case(k,v) =>  println(k + " : " + v) }
