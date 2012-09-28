@@ -1,7 +1,6 @@
 package spark.perf
 
 import spark._
-import spark.SparkContext
 import spark.SparkContext._
 import java.util.Random
 import spark.util.Vector
@@ -50,7 +49,7 @@ object TestKMeans {
     val test = new TestKMeans(sc)
     val numPartitions = args(1).toInt
 
-    val numPointsList = List(100, 1000, 10000, 100000, 1000000, 5000000, 10000000, 20000000)
+    val numPointsList = List(10000, 100000, 1000000, 5000000, 10000000, 20000000, 50000000)
     val results = HashMap[Tuple2[Int, Int], Double]()
     for (i <- (1 to 5)) {
       for (numPoints <- numPointsList){
