@@ -38,7 +38,7 @@ object TestGroupBy {
           println(key + " , " + time) 
         }
       }
-      results.foreach { case(k,v) =>  println(k + " : " + v) }
+      results.foreach { case(k,v) =>  println(k + "," + v) }
     }
 
     sc.stop()
