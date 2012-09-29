@@ -19,12 +19,12 @@ object SortBy {
     * @param numKeys approximate number of distinct keys
     * @param numTasks number of tasks to use
     */
-  def runTest(sc: SparkContext, numPairs: Int, numKeys: Int, numTasks: Int): Double = {
+  def runTest(sc: SparkContext, numPairs: Int, numKeys: Int, numTasks: Int): Long = {
     val pairs = RandomStrings.generatePairs(sc, 10, 10, numPairs, numKeys, numTasks).cache()
     pairs.count()
     val startTime = System.currentTimeMillis
     pairs.sortByKey().count()
-    (System.currentTimeMillis - startTime) / 1000.0
+    System.currentTimeMillis - startTime
   }
   
   def main(args: Array[String]) {
