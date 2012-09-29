@@ -61,10 +61,10 @@ object TestLR {
       val time = testWithArgs(N, D, R, numSlices)
       println((N,D,R,numSlices) + " , " + time) 
     } else {
-      val NList = List(10000, 100000, 1000000, 2000000, 5000000, 10000000)
+      val NList = List(10000, 100000, 1000000, 2000000, 5000000, 10000000, 20000000, 50000000, 100000000)
       val DList = List(10)
       val RList = List(1)
-      val numSlicesList = List(10, 50, 100, 1000)
+      val numSlicesList = List(10, 100, 1000)
 
       val argsList = (for (n <- NList; d <- DList; r <- RList; s <- numSlicesList) 
         yield (n, d, r, s))
