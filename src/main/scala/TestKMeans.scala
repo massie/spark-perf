@@ -47,7 +47,6 @@ object TestKMeans {
     val sparkHome = System.getenv("SPARK_HOME")
     val sc = new SparkContext(args(0), "TestKMeans", sparkHome, Nil)
     val test = new TestKMeans(sc)
-    val numPartitions = args(1).toInt
 
     val numPointsList = List(10000, 100000, 1000000, 5000000, 10000000, 20000000, 50000000, 100000000, 500000000)
     val numTasksList = List(10, 100, 1000)
