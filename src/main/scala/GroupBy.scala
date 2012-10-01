@@ -8,7 +8,7 @@ object GroupBy {
   def warmup(sc: SparkContext, numTasks: Int) {
     val pairs = RandomStrings.generatePairs(sc, 10, 10, 1000, 100, numTasks).cache()
     (0 until 5).foreach { x =>
-      pairs.groupByKey(10).count()
+      pairs.groupByKey(numTasks).count()
     }
   }
 
