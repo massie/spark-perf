@@ -38,6 +38,6 @@ object GroupBy {
     warmup(sc)
     val time = runTest(sc,numPairs,numKeys,numTasks)
     sc.stop()
-    println("GroupBy: " + time + " seconds")
+    println(time)
   }
 }

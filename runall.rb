@@ -8,6 +8,10 @@ numKeys = [100, 1000, 10000]
 numTasks = [10, 20, 100, 500]
 
 args = numPairs.product(numKeys).product(numTasks).flatten.each_slice(3).to_a
+args.select! do |arg|
+  arg[1].to_i <= arg[0].to_i && arg[1].to_i >= arg[2].to_i
+end
+
 args = [[100000, 100, 10]] if ENV["ONETEST"] == "true"
 
 args.each do |arg|

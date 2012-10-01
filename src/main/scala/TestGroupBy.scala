@@ -23,7 +23,7 @@ object TestGroupBy {
 
     val result = testWithArgs(args(1).toInt, args(2).toInt, args(3).toInt)
     println(result)
-  
+
     sc.stop()
 
   }
