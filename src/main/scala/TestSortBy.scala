@@ -21,25 +21,8 @@ object TestSortBy {
     val sparkHome = System.getenv("SPARK_HOME")
     sc = new SparkContext(args(0), "TestSortBy", sparkHome, Nil)
 
-    if (args.length == 4){
-      val result = testWithArgs(args(1).toInt, args(2).toInt, args(3).toInt)
-      println(result)
-    } else {
-      val argsList = (for (x <- numPairsList; y <- numKeysList; z <- numTasksList) 
-        yield (x, y, z)).filter { case(x,y,z) => (y <= x && y >= z) }
-      
-      val results = HashMap[Any, Long]()
-      for (i <- (1 to 5)) {
-        for (args <- argsList) {
-          val (numPairs, numKeys, numTasks) = args
-          val key = (i, numPairs, numKeys, numTasks)
-          val time = testWithArgs(numPairs, numKeys, numTasks)
-          results(key) = time
-          println(key + " , " + time) 
-        }
-      }
-      results.foreach { case(k,v) =>  println(k + "," + v) }
-    }
+    val result = testWithArgs(args(1).toInt, args(2).toInt, args(3).toInt)
+    println(result)
 
     sc.stop()
 

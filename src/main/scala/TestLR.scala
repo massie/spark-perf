@@ -53,36 +53,13 @@ object TestLR {
     val sparkHome = System.getenv("SPARK_HOME")
     sc = new SparkContext(args(0), "TestLR", sparkHome, Nil)
 
-    if(args.length == 5){
-      val N = args(1).toInt
-      val D = args(2).toInt
-      val R = args(3).toInt
-      val numSlices = args(4).toInt
-      val time = testWithArgs(N, D, R, numSlices)
-      println((N,D,R,numSlices) + " , " + time) 
-    } else {
-      val NList = List(10000, 100000, 1000000, 2000000, 5000000, 10000000, 20000000)
-      val DList = List(10)
-      val RList = List(1)
-      val numSlicesList = List(10, 100, 1000)
-
-      val argsList = (for (n <- NList; d <- DList; r <- RList; s <- numSlicesList) 
-        yield (n, d, r, s))
-
-      val results = HashMap[Any, Long]()
-      for (i <- (1 to 5)) {
-        for (args <- argsList) {
-          val (n,d,r,numSlices) = args
-          val key = (i, n,d,r,numSlices)
-          val time = testWithArgs(n,d,r,numSlices)
-          results(key) = time
-          println(key + " , " + time) 
-        }
-      }
-      results.foreach { case(k,v) =>  println(k + "," + v) }
-
-    }
-
+    val N = args(1).toInt
+    val D = args(2).toInt
+    val R = args(3).toInt
+    val numSlices = args(4).toInt
+    val time = testWithArgs(N, D, R, numSlices)
+    println(time) 
+   
     sc.stop()
     
   }

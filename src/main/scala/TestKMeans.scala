@@ -48,27 +48,12 @@ object TestKMeans {
     val sc = new SparkContext(args(0), "TestKMeans", sparkHome, Nil)
     val test = new TestKMeans(sc)
 
-    val numPointsList = List(10000, 100000, 1000000, 5000000, 10000000, 20000000)
-    val numTasksList = List(10, 100, 1000)
-
-    val argsList = (for (x <- numPointsList; y <- numTasksList)
-        yield (x, y))
-
-    val results = HashMap[Any, Long]()
-    for (i <- (1 to 5)) {
-      for (iargs <- argsList){
-        val (numPoints, numTasks) = iargs
-        val key = (i, numPoints, numTasks)
-        System.err.println("Running " + key)
-        val pointsRdd = RandomPoints.generateClusteredPoints(sc, 10, numPoints, 10, 100, 1, numTasks).cache
-        val startTime = System.currentTimeMillis
-        test.run(pointsRdd, 10, 0.001)
-        val delta = (System.currentTimeMillis - startTime)
-        results(key) = delta
-      }
-    }
-    
-    results.foreach { case(k,v) =>  println(k + "," + v) }
+    val pointsRdd = RandomPoints.generateClusteredPoints(sc, 10, args(1).toInt, 10, 100, 1, args(2).toInt).cache
+    val startTime = System.currentTimeMillis
+    test.run(pointsRdd, 10, 0.001)
+    val delta = (System.currentTimeMillis - startTime)
+    println(delta) 
+   
     sc.stop()
   }
 
