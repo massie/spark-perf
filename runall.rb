@@ -17,6 +17,7 @@ args = [[100000, 100, 10]] if ENV["ONETEST"] == "true"
 args.each do |arg|
   print "GroupBy #{arg.join(" ")} "
   puts `./run spark.perf.TestGroupBy #{ENV["MASTER"]} #{arg.join(" ")}`
+  STDOUT.flush
 end
 
 # Sort By
@@ -25,6 +26,7 @@ end
 args.each do |arg|
   print "SortBy #{arg.join(" ")} "
   puts `./run spark.perf.TestSortBy #{ENV["MASTER"]} #{arg.join(" ")}`
+  STDOUT.flush
 end
 
 
@@ -43,6 +45,7 @@ args = [[10000, 10, 1, 10]] if ENV["ONETEST"] == "true"
 args.each do |arg|
   print "LR #{arg.join(" ")} "
   puts `./run spark.perf.TestLR #{ENV["MASTER"]} #{arg.join(" ")}`
+  STDOUT.flush
 end
 
 # KMeans
@@ -58,4 +61,5 @@ args = [[1000, 10]] if ENV["ONETEST"] == "true"
 args.each do |arg|
   print "KMeans #{arg.join(" ")} "
   puts `./run spark.perf.TestKMeans #{ENV["MASTER"]} #{arg.join(" ")}`
+  STDOUT.flush
 end
