@@ -14,6 +14,7 @@ object TestGroupBy {
   val results = HashMap[Any, Long]()
 
   def testWithArgs(numPairs: Int, numKeys: Int, numTasks: Int) : Long = {
+    GroupBy.warmup(sc)
     return GroupBy.runTest(sc, numPairs, numKeys, numTasks)
   }
 
