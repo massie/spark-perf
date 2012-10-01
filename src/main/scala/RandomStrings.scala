@@ -31,18 +31,6 @@ object RandomStrings {
     }
 
     return pairsRdd
- //      var numPartitionPairs = numPairs/numPartitions
- //      var numPartitionKeys = numKeys/numPartitions
-
- //      // generate the keys used
- //      val keys = (0 until numPartitionKeys).map { i => generateString(keyLen) }
-      
- //      (0 until numPartitionPairs).map { i =>
- //        val keyIndex = if (i < numPartitionKeys) i else Random.nextInt(numPartitionKeys)
-	// (Random.nextInt(), (keys(keyIndex), generateString(valueLen)))
- //      }
-      
-    // } partitionBy(new HashPartitioner(numPartitions)) map (pair => pair._2)
   }
 
   def main(args: Array[String]) {
