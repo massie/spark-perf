@@ -5,7 +5,7 @@
 
 numPairs = [100000, 1000000, 5000000, 10000000, 20000000, 50000000, 100000000]
 numKeys = [100, 1000, 10000]
-numTasks = [10, 20, 100, 500]
+numTasks = [10, 80, 500]
 
 args = numPairs.product(numKeys).product(numTasks).flatten.each_slice(3).to_a
 args = args.select do |arg|

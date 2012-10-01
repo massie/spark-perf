@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 numPoints = [10000, 100000, 1000000, 5000000, 10000000, 20000000]
-numTasks = [10, 100, 1000]
+numTasks = [10, 80, 1000]
 
 args = numPoints.product(numTasks).flatten.each_slice(2).to_a
 

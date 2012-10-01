@@ -3,7 +3,7 @@
 nList = [10000, 100000, 1000000, 2000000, 5000000, 10000000, 20000000]
 dList = [10]
 rList = [1]
-numSlicesList = [10, 100, 1000]
+numSlicesList = [10, 80, 1000]
 
 args = nList.product(dList).product(rList).product(numSlicesList).flatten.each_slice(4).to_a
 
