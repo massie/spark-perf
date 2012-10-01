@@ -5,8 +5,8 @@ import spark.SparkContext._
 
 object GroupBy {
   
-  def warmup(sc: SparkContext) {
-    val pairs = RandomStrings.generatePairs(sc, 10, 10, 1000, 100, 10).cache()
+  def warmup(sc: SparkContext, numTasks: Int) {
+    val pairs = RandomStrings.generatePairs(sc, 10, 10, 1000, 100, numTasks).cache()
     (0 until 5).foreach { x =>
       pairs.groupByKey(10).count()
     }
@@ -35,7 +35,7 @@ object GroupBy {
     val numKeys = args(2).toInt
     val numTasks = args(3).toInt
     
-    warmup(sc)
+    warmup(sc, numTasks)
     val time = runTest(sc,numPairs,numKeys,numTasks)
     sc.stop()
     println(time)

@@ -14,7 +14,7 @@ object TestSortBy {
   val results = HashMap[Any, Long]()
 
   def testWithArgs(numPairs: Int, numKeys: Int, numTasks: Int) : Long = {
-    SortBy.warmup(sc)
+    SortBy.warmup(sc, numTasks)
     return SortBy.runTest(sc, numPairs, numKeys, numTasks)
   }
 

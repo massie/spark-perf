@@ -10,8 +10,8 @@ import scala.collection.mutable.Map
 class TestAll(sc: SparkContext) {
 
   def warmup() {
-    GroupBy.warmup(sc)
-    SortBy.warmup(sc)
+    GroupBy.warmup(sc, 10)
+    SortBy.warmup(sc, 10)
   }
 
   def runWithArgs(numPairs : Int, numKeys : Int, numTasks : Int) {
