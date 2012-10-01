@@ -18,6 +18,7 @@ args.each do |arg|
   print "GroupBy #{arg.join(" ")} "
   puts `./run spark.perf.TestGroupBy #{ENV["MASTER"]} #{arg.join(" ")}`
   STDOUT.flush
+  sleep 1
 end
 
 # Sort By
@@ -27,6 +28,7 @@ args.each do |arg|
   print "SortBy #{arg.join(" ")} "
   puts `./run spark.perf.TestSortBy #{ENV["MASTER"]} #{arg.join(" ")}`
   STDOUT.flush
+  sleep 1
 end
 
 
@@ -46,6 +48,7 @@ args.each do |arg|
   print "LR #{arg.join(" ")} "
   puts `./run spark.perf.TestLR #{ENV["MASTER"]} #{arg.join(" ")}`
   STDOUT.flush
+  sleep 1
 end
 
 # KMeans
@@ -62,4 +65,5 @@ args.each do |arg|
   print "KMeans #{arg.join(" ")} "
   puts `./run spark.perf.TestKMeans #{ENV["MASTER"]} #{arg.join(" ")}`
   STDOUT.flush
+  sleep 1
 end
