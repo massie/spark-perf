@@ -18,7 +18,7 @@ args.each do |arg|
   print "GroupBy #{arg.join(" ")} "
   puts `./run spark.perf.GroupBy #{ENV["MASTER"]} #{arg.join(" ")}`
   STDOUT.flush
-  sleep 1
+  sleep 5
 end
 
 # Sort By
@@ -28,7 +28,7 @@ args.each do |arg|
   print "SortBy #{arg.join(" ")} "
   puts `./run spark.perf.SortBy #{ENV["MASTER"]} #{arg.join(" ")}`
   STDOUT.flush
-  sleep 1
+  sleep 5
 end
 
 
