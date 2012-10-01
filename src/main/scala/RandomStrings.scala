@@ -21,21 +21,28 @@ object RandomStrings {
   def generatePairs(sc: SparkContext, keyLen: Int, valueLen: Int, numPairs: Int, 
     numKeys: Int, numPartitions: Int): spark.RDD[(String, String)] = {
 
-    val rdd = sc.parallelize(1 to numPartitions, numPartitions).flatMap { partition =>
-      var numPartitionPairs = numPairs/numPartitions
-      var numPartitionKeys = numKeys/numPartitions
 
-      // generate the keys used
-      val keys = (0 until numPartitionKeys).map { i => generateString(keyLen) }
-      
-      (0 until numPartitionPairs).map { i =>
-        val keyIndex = if (i < numPartitionKeys) i else Random.nextInt(numPartitionKeys)
-	(Random.nextInt(), (keys(keyIndex), generateString(valueLen)))
-      }
-      
-    } partitionBy(new HashPartitioner(numPartitions)) map (pair => pair._2)
+    val keys = (0 until numKeys).map { i => generateString(keyLen) }
+    val broadcastKeys = sc.broadcast(keys)
 
-    rdd
+    val rdd = sc.parallelize(1 to numPairs, numPartitions)
+    val pairsRdd = rdd.map { x => 
+      (broadcastKeys.value(Random.nextInt(numKeys)), generateString(valueLen))
+    }
+
+    return pairsRdd
+ //      var numPartitionPairs = numPairs/numPartitions
+ //      var numPartitionKeys = numKeys/numPartitions
+
+ //      // generate the keys used
+ //      val keys = (0 until numPartitionKeys).map { i => generateString(keyLen) }
+      
+ //      (0 until numPartitionPairs).map { i =>
+ //        val keyIndex = if (i < numPartitionKeys) i else Random.nextInt(numPartitionKeys)
+	// (Random.nextInt(), (keys(keyIndex), generateString(valueLen)))
+ //      }
+      
+    // } partitionBy(new HashPartitioner(numPartitions)) map (pair => pair._2)
   }
 
   def main(args: Array[String]) {
