@@ -22,7 +22,7 @@ object RandomStrings {
     numKeys: Int, numPartitions: Int): spark.RDD[(String, String)] = {
 
 
-    val keys = (0 until numKeys).map { i => generateString(keyLen) }
+    val keys = (0 until numKeys).map { i => generateString(keyLen) }.toArray
     val broadcastKeys = sc.broadcast(keys)
 
     val rdd = sc.parallelize(1 to numPairs, numPartitions)
