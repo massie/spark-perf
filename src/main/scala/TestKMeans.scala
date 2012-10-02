@@ -49,10 +49,14 @@ object TestKMeans {
     val test = new TestKMeans(sc)
 
     val pointsRdd = RandomPoints.generateClusteredPoints(sc, 10, args(1).toInt, 10, 100, 1, args(2).toInt).cache
-    val startTime = System.currentTimeMillis
-    test.run(pointsRdd, 10, 0.001)
-    val delta = (System.currentTimeMillis - startTime)
-    println(delta) 
+    
+    val time = (1 to 5).map { i => 
+      val startTime = System.currentTimeMillis
+      test.run(pointsRdd, 10, 0.001)
+      System.currentTimeMillis - startTime
+    }.min
+    
+    println(time) 
    
     sc.stop()
   }

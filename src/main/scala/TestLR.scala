@@ -57,7 +57,11 @@ object TestLR {
     val D = args(2).toInt
     val R = args(3).toInt
     val numSlices = args(4).toInt
-    val time = testWithArgs(N, D, R, numSlices)
+
+    val time = (1 to 5).map { i => 
+      testWithArgs(N, D, R, numSlices)
+    }.min
+    
     println(time) 
    
     sc.stop()

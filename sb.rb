@@ -15,7 +15,7 @@ end
 args = [[100000, 100, 10]] if ENV["ONETEST"] == "true"
 
 args.each do |arg|
-  print "GroupBy #{arg.join(" ")} "
+  print "SortBy #{arg.join(" ")} "
   STDOUT.flush
   puts `./run spark.perf.SortBy #{ENV["MASTER"]} #{arg.join(" ")}`
   STDOUT.flush
