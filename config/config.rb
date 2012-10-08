@@ -1,12 +1,19 @@
 # Tests in the list below will be executed in order
 # TESTS = ["simplesum","groupby", "sortby", "kmeans", "logreg"]
-TESTS = ["simplesum","groupby", "sortby", "kmeans", "logreg"]
+TESTS = ["simplesum", "groupby", "sortby", "kmeans", "logreg"]
+TESTS = ["groupby"]
 
 # Spark Configuration Options
 # --------------------------------------------------
 
+# If this is not set the script will look at your env variables
+SPARK_HOME = nil
+MASTER = "local"
+
 SPARK_MEM = "8g"
 
+# Each element of this list below will be tested with all
+# test-level combination defined later in this file
 JAVA_OPTS = {
   # Fraction of JVM memory used for caching RDDs
   "spark.storage.memoryFraction" => 0.66,
@@ -52,7 +59,7 @@ GROUPBY_NUM_TUPLES = [100000, 1000000, 10000000, 50000000, 100000000]
 # Number of distinct keys
 GROUPBY_DISTINCT_KEYS = [100, 1000, 10000]
 # String length of the tuple value (Bytes = approx. 2 * LENGTH + 40)
-GROUPBY_VALUE_LENGTH = 100
+GROUPBY_VALUE_LENGTH = [100]
 
 
 # SortBy Configuration
@@ -63,7 +70,7 @@ SORTBY_NUM_TUPLES = [100000, 1000000, 10000000, 50000000, 100000000]
 # Number of distinct keys
 SORTBY_DISTINCT_KEYS = [100, 1000, 10000]
 # String length of the tuple value
-SORTBY_VALUE_LENGTH = 100
+SORTBY_VALUE_LENGTH = [100]
 
 
 # KMeans Configuration
@@ -72,7 +79,7 @@ SORTBY_VALUE_LENGTH = 100
 # Total number of points used for KMeans
 KMEANS_NUM_POINTS = [10000, 100000, 1000000, 10000000, 50000000]
 # Dimension of the vectors
-KMEANS_DIMENSION = 10
+KMEANS_DIMENSION = [10]
 
 
 # Logistic Regression Configuration
@@ -81,5 +88,5 @@ KMEANS_DIMENSION = 10
 # Total number of points used for KMeans
 LR_NUM_POINTS = [10000, 100000, 1000000, 10000000, 50000000]
 # Dimension of the vectors
-LR_DIMENSION = 10
+LR_DIMENSION = [10]
 
