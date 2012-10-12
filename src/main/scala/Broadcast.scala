@@ -8,7 +8,7 @@ import java.util.Random
 import scala.math.exp
 import scala.collection.mutable.HashMap
 
-object TestBroadcast {
+object BroadcastTest {
   
   var sc : SparkContext = null
 

@@ -7,9 +7,30 @@ import spark.util.Vector
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.HashSet
 
-class TestKMeans(sc : SparkContext) {
+object KMeans {
 
-  def run(data : RDD[Vector], K : Int, convergeDist: Double) : HashMap[Int, Vector] = {
+  val NUM_CLUSTERS = 10
+  val CONVERGENCE_DIST = 0.01
+  
+  // Taken from Spark Examples
+  def closestPoint(p: Vector, centers: HashMap[Int, Vector]): Int = {
+    var index = 0
+    var bestIndex = 0
+    var closest = Double.PositiveInfinity
+  
+    for (i <- 1 to centers.size) {
+      val vCurr = centers.get(i).get
+      val tempDist = p.squaredDist(vCurr)
+      if (tempDist < closest) {
+        closest = tempDist
+        bestIndex = i
+      }
+    }
+    return bestIndex
+  }
+
+  // Taken from Spark Examples
+  def testWithArgs(data : RDD[Vector], K : Int, convergeDist: Double) : HashMap[Int, Vector] = {
 
     var points = data.takeSample(false, K, 42)
     var kPoints = new HashMap[Int, Vector]
@@ -20,7 +41,7 @@ class TestKMeans(sc : SparkContext) {
     }
 
     while(tempDist > convergeDist) {
-      var closest = data.map (p => (TestKMeans.closestPoint(p, kPoints), (p, 1)))
+      var closest = data.map (p => (KMeans.closestPoint(p, kPoints), (p, 1)))
       
       var pointStats = closest.reduceByKey {case ((x1, y1), (x2, y2)) => (x1 + x2, y1 + y2)}
       
@@ -39,20 +60,21 @@ class TestKMeans(sc : SparkContext) {
     return kPoints
   }
 
-}
-
-object TestKMeans {
-
   def main(args: Array[String]) {
     val sparkHome = System.getenv("SPARK_HOME")
-    val sc = new SparkContext(args(0), "TestKMeans", sparkHome, Nil)
-    val test = new TestKMeans(sc)
+    val sc = new SparkContext(System.getenv("MASTER"), "KMeans", sparkHome, Nil)
 
-    val pointsRdd = RandomPoints.generateClusteredPoints(sc, 10, args(1).toInt, 10, 100, 1, args(2).toInt).cache
+    // Parse arguments
+    val Array(rddSlices, numReduceTasks, numPoints, vectorDim) = args.map(_.toInt)
+
+    // Generate random points
+    val pointsRdd = RandomPoints.generateClusteredPoints(sc, NUM_CLUSTERS, 
+      numPoints, vectorDim, rddSlices).cache
     
+    // Run the test
     val time = (1 to 5).map { i => 
       val startTime = System.currentTimeMillis
-      test.run(pointsRdd, 10, 0.001)
+      testWithArgs(pointsRdd, NUM_CLUSTERS, CONVERGENCE_DIST)
       System.currentTimeMillis - startTime
     }.min
     
@@ -60,22 +82,5 @@ object TestKMeans {
    
     sc.stop()
   }
-
-    def closestPoint(p: Vector, centers: HashMap[Int, Vector]): Int = {
-    var index = 0
-    var bestIndex = 0
-    var closest = Double.PositiveInfinity
-  
-    for (i <- 1 to centers.size) {
-      val vCurr = centers.get(i).get
-      val tempDist = p.squaredDist(vCurr)
-      if (tempDist < closest) {
-        closest = tempDist
-        bestIndex = i
-      }
-    }
-    return bestIndex
-  }
-
 
 }

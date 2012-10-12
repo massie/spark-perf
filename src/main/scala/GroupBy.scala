@@ -6,9 +6,10 @@ import spark.SparkContext._
 object GroupBy {
   
   var sc : SparkContext = null
+  val KEY_LENGTH = 10
 
   def testWithArgs(rddSlices : Int, numReduceTasks: Int, numPairs: Int, numKeys: Int, valueLength: Int) : Long = {
-    val pairs = RandomStrings.generatePairs(sc, valueLength, valueLength, numPairs, numKeys, rddSlices).cache()
+    val pairs = RandomStrings.generatePairs(sc, KEY_LENGTH, valueLength, numPairs, numKeys, rddSlices).cache()
     (1 to 5).map { i =>
       val startTime = System.currentTimeMillis
       pairs.groupByKey(numReduceTasks).count

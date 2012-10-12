@@ -1,7 +1,5 @@
 # Tests in the list below will be executed in order
-# TESTS = ["simplesum","groupby", "sortby", "kmeans", "logreg"]
 TESTS = ["simplesum", "groupby", "sortby", "kmeans", "logreg"]
-TESTS = ["groupby"]
 
 # Spark Configuration Options
 # --------------------------------------------------
