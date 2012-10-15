@@ -1,8 +1,13 @@
 #!/usr/bin/env ruby
 
 require "#{File.dirname(__FILE__) + "/../config/config.rb"}"
+require 'pathname'
 
 # Set Spark Environment Variables
+# --------------------------------------------------
+
+ENV["SPARK_HOME"] = Pathname.new("spark").realpath.to_s
+
 ENV["SPARK_MEM"] = SPARK_MEM
 ENV["SPARK_RDD_STORAGE_LEVEL"] = RDD_STORAGE_LEVEL
 
@@ -13,10 +18,16 @@ end
 
 ENV["MASTER"] = MASTER
 
+# Adding spark-perf classes to the Spark classpath
+ENV["SPARK_CLASSPATH"] = Pathname.new("#{File.dirname(__FILE__) +
+  "/../target/scala-2.9.2/classes/"}").realpath.to_s
+
 # Build the run command
-SPARK_DIR = (SPARK_HOME || ENV["SPARK_HOME"] || `pwd`)
+# --------------------------------------------------
+
+SPARK_DIR = (ENV["SPARK_HOME"] || (`pwd` + "/spark"))
 cmd = "cd #{SPARK_DIR}; ./run #{ARGV.join(" ")}"
 $stderr.puts cmd
 
-# Execute the command
+# Execute the program
 exec cmd

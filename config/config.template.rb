@@ -5,7 +5,6 @@ TESTS = ["simplesum", "groupby", "sortby", "kmeans", "logreg"]
 # --------------------------------------------------
 
 # If this is not set the script will look at your env variables
-SPARK_HOME = nil
 MASTER = "local"
 
 SPARK_MEM = "8g"
