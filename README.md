@@ -6,7 +6,6 @@
 **Note**: Make sure to configure your log4j.properties file correctly to log out stderr, not stdout. All results will be printed to stdout and you don't want them to be intermingled with log messages.
 
 ### TODO
-
-- Dynamically generate a spark-env.sh
-- Broadcast Test
 - Handle Spark crashes and freezes
+- Handle multiple configuration of JAVA_OPTS
+- Broadcast Test
