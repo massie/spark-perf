@@ -17,6 +17,7 @@ $stderr.puts "Downloading Spark..."
 $stderr.puts "Building branch #{ARGV[0]}. This may take a while."
 `cd spark; git checkout -b #{ARGV[0]} #{ARGV[0]}; sbt/sbt products; sbt/sbt publish-local`
 # Building the spark-perf code against the downloaded version of Spark
+$stderr.puts "Building spark-perf..."
 `cd #{File.dirname(__FILE__)}; sbt/sbt compile`
 
 
