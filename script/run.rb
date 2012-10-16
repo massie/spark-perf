@@ -2,6 +2,7 @@
 
 require "#{File.dirname(__FILE__) + "/../config/config.rb"}"
 require 'pathname'
+require 'timeout'
 
 # Set Spark Environment Variables
 # --------------------------------------------------
@@ -29,5 +30,18 @@ SPARK_DIR = (ENV["SPARK_HOME"] || (`pwd` + "/spark"))
 cmd = "cd #{SPARK_DIR}; ./run #{ARGV.join(" ")}"
 $stderr.puts cmd
 
-# Execute the program
-exec cmd
+# Execute the program with a timeout
+begin
+  @pipe = nil
+  Timeout::timeout(TIMEOUT) do
+    @pipe = IO.popen(cmd)
+    Process.wait @pipe.pid
+    puts @pipe.read
+  end
+rescue Timeout::Error
+  puts "TIMEOUT"
+  # This is very ugly, but I haven't found a good way to handle this.
+  # The Spark run scripts uses exec which assigns a different pid to the actual
+  # java process. On most unix system the pid is just incremenet by one.
+  Process.kill 9, @pipe.pid + 1
+end
