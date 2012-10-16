@@ -1,5 +1,8 @@
 # Tests in the list below will be executed in order
 TESTS = ["simplesum", "groupby", "sortby", "kmeans", "logreg"]
+# The number of seconds after which a test is marked as timed out
+# and the Spark process is killed
+TIMEOUT = 1000
 
 # Spark Configuration Options
 # --------------------------------------------------
