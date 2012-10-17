@@ -23,7 +23,9 @@ JAVA_OPTS = {
   # Type of serialization used: spark.JavaSerializer, spark.KryoSerializer
   "spark.serializer" => "spark.JavaSerializer",
   # Enable/Disable Compression
-  "spark.blockManager.compress" => false
+  "spark.blockManager.compress" => false,
+  # Temp file directory
+  "spark.local.dir" => "/mnt/tmp"
 }
 
 # Default RDD Storage Level: 
