@@ -9,3 +9,4 @@
 ### TODO
 - Handle multiple configuration of JAVA_OPTS
 - Broadcast Test
+- Don't assume we can use ~/mesos-ec2/copy-dir to copy directories to slaves.
