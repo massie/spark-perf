@@ -8,6 +8,7 @@ if TESTS.include?("kmeans")
   results = RDD_SLICES.product(NUM_REDUCE_TASKS, KMEANS_NUM_POINTS, KMEANS_DIMENSION).map do |args|
     result = run("spark.perf.KMeans", args)
     puts result
+    STDOUT.flush
     [args, result]
   end
 

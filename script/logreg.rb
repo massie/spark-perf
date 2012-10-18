@@ -8,6 +8,7 @@ if TESTS.include?("logreg")
   results = RDD_SLICES.product(NUM_REDUCE_TASKS, LR_NUM_POINTS, LR_DIMENSION).map do |args|
     result = run("spark.perf.LogReg", args)
     puts result
+    STDOUT.flush
     [args, result]
   end
   

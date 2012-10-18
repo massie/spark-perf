@@ -8,6 +8,7 @@ if TESTS.include?("simplesum")
   results = RDD_SLICES.product(NUM_REDUCE_TASKS).map do |args|
     result = run("spark.perf.SimpleSum", args)
     puts result
+    STDOUT.flush
     [args, result]
   end
 

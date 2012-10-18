@@ -9,6 +9,7 @@ if TESTS.include?("sortby")
     SORTBY_DISTINCT_KEYS, SORTBY_VALUE_LENGTH).map do |args|
     result = run("spark.perf.SortBy", args)
     puts result
+    STDOUT.flush
     [args, result]
   end
 
