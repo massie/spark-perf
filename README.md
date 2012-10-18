@@ -7,6 +7,5 @@
 - Make sure to configure your log4j.properties file correctly to log out stderr, not stdout. All results will be printed to stdout and you don't want them to be intermingled with log messages.
 
 ### TODO
-- Write Spark conf for cluster testing or transmit variables using new executorVars
 - Handle multiple configuration of JAVA_OPTS
 - Broadcast Test
