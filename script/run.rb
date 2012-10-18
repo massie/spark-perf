@@ -44,5 +44,6 @@ rescue Timeout::Error
   # This is very ugly, but I haven't found a good way to handle this.
   # The Spark run scripts uses exec which assigns a different pid to the actual
   # java process. On most unix system the pid is just incremenet by one.
+  Process.kill 9, @pipe.pid
   Process.kill 9, @pipe.pid + 1
 end
