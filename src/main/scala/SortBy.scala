@@ -18,11 +18,8 @@ object SortBy {
   }
   
   def main(args: Array[String]) {
-    val sparkHome = System.getenv("SPARK_HOME")
-    sc = new SparkContext(System.getenv("MASTER"), "SortBy", sparkHome, Nil,
-      Map("SPARK_HOME" -> System.getenv("SPARK_HOME"),
-        "SCALA_HOME" -> System.getenv("SCALA_HOME"))
-    )
+    sc = new SparkContext(System.getenv("MASTER"), "SortBy", 
+      System.getenv("SPARK_HOME"), Nil, Util.executorVars)
     val result = testWithArgs(args(0).toInt, args(1).toInt, args(2).toInt, args(3).toInt, args(4).toInt)
     println(result)
     sc.stop()
