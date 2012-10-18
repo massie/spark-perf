@@ -7,17 +7,15 @@ require 'timeout'
 # Set Spark Environment Variables
 # --------------------------------------------------
 
+ENV_VARS.each_pair do |k,v|
+  ENV[k] = v unless v.nil?
+end
 ENV["SPARK_HOME"] = Pathname.new("spark").realpath.to_s
-
-ENV["SPARK_MEM"] = SPARK_MEM
-ENV["SPARK_RDD_STORAGE_LEVEL"] = RDD_STORAGE_LEVEL
 
 ENV["SPARK_JAVA_OPTS"] ||= ""
 JAVA_OPTS.each_pair do |k,v|
   ENV["SPARK_JAVA_OPTS"] += "-D#{k}=#{v} "
 end
-
-ENV["MASTER"] = MASTER
 
 # Adding spark-perf classes to the Spark classpath
 ENV["SPARK_CLASSPATH"] = Pathname.new("#{File.dirname(__FILE__) +

@@ -8,9 +8,16 @@ TIMEOUT = 1000
 # --------------------------------------------------
 
 # If this is not set the script will look at your env variables
-MASTER = "local"
-
-SPARK_MEM = "8g"
+ENV_VARS = {
+  "MASTER" => "local",
+  "SPARK_MEM" => "8g",
+  # Default RDD Storage Level: 
+  # NONE, DISK_ONLY, DISK_ONLY_2, 
+  # MEMORY_ONLY, MEMORY_ONLY_2, MEMORY_ONLY_SER, MEMORY_ONLY_SER_2
+  # MEMORY_AND_DISK, MEMORY_AND_DISK_2, MEMORY_AND_DISK_SER, MEMORY_AND_DISK_SER_2
+  "RDD_STORAGE_LEVEL" => "NONE",
+  "MESOS_NATIVE_LIBRARY" => nil
+}
 
 # Each element of this list below will be tested with all
 # test-level combination defined later in this file
@@ -26,13 +33,6 @@ JAVA_OPTS = {
   # Temp file directory
   "spark.local.dir" => "/mnt/tmp"
 }
-
-# Default RDD Storage Level: 
-# NONE, DISK_ONLY, DISK_ONLY_2, 
-# MEMORY_ONLY, MEMORY_ONLY_2, MEMORY_ONLY_SER, MEMORY_ONLY_SER_2
-# MEMORY_AND_DISK, MEMORY_AND_DISK_2, MEMORY_AND_DISK_SER, MEMORY_AND_DISK_SER_2
-RDD_STORAGE_LEVEL = "NONE"
-
 
 # Global Test Configuration Section
 # --------------------------------------------------
