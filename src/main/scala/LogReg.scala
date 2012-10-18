@@ -47,7 +47,10 @@ object LogReg {
 
   def main(args: Array[String]) {
     val sparkHome = System.getenv("SPARK_HOME")
-    sc = new SparkContext(System.getenv("MASTER"), "LogReg", sparkHome, Nil)
+    sc = new SparkContext(System.getenv("MASTER"), "LogReg", sparkHome, Nil,
+      Map("SPARK_HOME" -> System.getenv("SPARK_HOME"),
+        "SCALA_HOME" -> System.getenv("SCALA_HOME"))
+    )
 
     // Parse arguments
     val Array(rddSlices, numReduceTasks, numPoints, vectorDim) = args.map(_.toInt)

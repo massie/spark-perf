@@ -61,8 +61,10 @@ object KMeans {
   }
 
   def main(args: Array[String]) {
-    val sparkHome = System.getenv("SPARK_HOME")
-    val sc = new SparkContext(System.getenv("MASTER"), "KMeans", sparkHome, Nil)
+    val sc = new SparkContext(System.getenv("MASTER"), "KMeans", System.getenv("SPARK_HOME"), Nil,
+      Map("SPARK_HOME" -> System.getenv("SPARK_HOME"),
+        "SCALA_HOME" -> System.getenv("SCALA_HOME"))
+    )
 
     // Parse arguments
     val Array(rddSlices, numReduceTasks, numPoints, vectorDim) = args.map(_.toInt)

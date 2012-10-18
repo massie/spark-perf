@@ -16,7 +16,10 @@ object SimpleSum {
   }
   
   def main(args: Array[String]) {
-    sc = new SparkContext(System.getenv("MASTER"), "SortBy", System.getenv("SPARK_HOME"), Nil)
+    sc = new SparkContext(System.getenv("MASTER"), "SortBy", System.getenv("SPARK_HOME"), Nil,
+      Map("SPARK_HOME" -> System.getenv("SPARK_HOME"),
+        "SCALA_HOME" -> System.getenv("SCALA_HOME"))
+    )
     val result = testWithArgs(args(0).toInt, args(1).toInt)
     println(result)
     sc.stop()
