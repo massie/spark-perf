@@ -11,7 +11,7 @@ TIMEOUT = 1000
 ENV_VARS = {
   "MASTER" => "local",
   "SPARK_MEM" => "8g",
-  "SCALA_HOME" => "/root/scala-2.9.2"
+  "SCALA_HOME" => "/root/scala-2.9.2",
   # Default RDD Storage Level: 
   # NONE, DISK_ONLY, DISK_ONLY_2, 
   # MEMORY_ONLY, MEMORY_ONLY_2, MEMORY_ONLY_SER, MEMORY_ONLY_SER_2
