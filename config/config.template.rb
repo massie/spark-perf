@@ -93,3 +93,13 @@ LR_NUM_POINTS = [10000, 100000, 1000000, 10000000, 50000000]
 # Dimension of the vectors
 LR_DIMENSION = [10]
 
+
+# Broadcast Test Configuration
+# --------------------------------------------------
+
+# Number of broadcast variables
+BC_NUM_VARS = [10, 100]
+# Number of objects per broadcast variable
+BC_NUM_OBJECTS = [10, 100, 1000]
+# String length of broadcast object value (Bytes = approx. 2 * LENGTH + 40)
+BC_OBJECT_LENGTH = [1000, 10000]
