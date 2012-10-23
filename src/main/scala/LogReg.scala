@@ -49,7 +49,7 @@ object LogReg {
     sc = new SparkContext(System.getenv("MASTER"), "LogReg", 
       System.getenv("SPARK_HOME"), Nil, Util.executorVars)
     // Parse arguments
-    val Array(rddSlices, numReduceTasks, numPoints, vectorDim) = args.map(_.toInt)
+    val Array(rddSlices, numPoints, vectorDim) = args.map(_.toInt)
     // Run test
     val time = (1 to 5).map { i => 
       testWithArgs(rddSlices, numPoints, vectorDim)

@@ -65,7 +65,7 @@ object KMeans {
       System.getenv("SPARK_HOME"), Nil, Util.executorVars)
 
     // Parse arguments
-    val Array(rddSlices, numReduceTasks, numPoints, vectorDim) = args.map(_.toInt)
+    val Array(rddSlices, numPoints, vectorDim) = args.map(_.toInt)
 
     // Generate random points
     val pointsRdd = RandomPoints.generateClusteredPoints(sc, NUM_CLUSTERS, 

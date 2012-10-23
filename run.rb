@@ -14,6 +14,8 @@ end
 # Clone the Git repository and create a branch for the hash
 $stderr.puts "Downloading Spark..."
 $stderr.puts `git clone git://github.com/mesos/spark.git` unless File.exists?("spark")
+# Pull just in case spark was already cloned earlier
+$stderr.puts `cd spark; git pull origin master:master`
 
 # Build Spark
 $stderr.puts "Building branch #{ARGV[0]}. This may take a while."
