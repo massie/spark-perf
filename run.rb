@@ -25,8 +25,8 @@ $stderr.puts `cd #{File.dirname(__FILE__)}; sbt/sbt compile`
 
 # Sync the whole directory to the slaves. 
 # Here we are assuming we are using our Amazon EC2 AMI, that's a TODO.
-$stderr.puts `/root/mesos-ec2/copy-dir #{File.dirname(__FILE__)}` 
-  rescue "~/mesos-ec2/copy-dir not found. Continuing without..."
+$stderr.puts `/root/mesos-ec2/copy-dir #{File.dirname(__FILE__)}` rescue 
+  "~/mesos-ec2/copy-dir not found. Continuing without..."
 
 # Run the tests
 exec "#{File.dirname(__FILE__)}/script/all.rb"
