@@ -26,7 +26,7 @@ if JAVA_OPTS["spark.local.dir"]
   JAVA_OPTS["spark.local.dir"].split(",").map {|x| x.chomp}.each do |path|
     $stderr.puts "Clearing #{path}."
     $stderr.puts `rm -rf #{path}/*`
-    $stderr.puts `/root/mesos-ec2/copy-dir #{path}`
+    $stderr.puts `#{File.dirname(__FILE__)}/../mesos-ec2/copy-dir #{path}`
   end
 else
   $stderr.puts "Warning: spark.local.dir not set. Not clearing local data."
