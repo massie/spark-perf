@@ -21,6 +21,18 @@ end
 ENV["SPARK_CLASSPATH"] = Pathname.new("#{File.dirname(__FILE__) +
   "/../target/scala-2.9.2/classes/"}").realpath.to_s
 
+# Clearing the local directories
+if JAVA_OPTS["spark.local.dir"]
+  JAVA_OPTS["spark.local.dir"].split(",").map {|x| x.chomp}.each do |path|
+    $stderr.puts "Clearing #{path}."
+    $stderr.puts `rm -rf #{path}/*`
+    $stderr.puts `/root/mesos-ec2/copy-dir #{path}`
+  end
+else
+  $stderr.puts "Warning: spark.local.dir not set. Not clearing local data."
+end
+
+
 # Build the run command
 # --------------------------------------------------
 
