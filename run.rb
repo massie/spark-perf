@@ -35,9 +35,10 @@ if (ENV["SKIP_WARMUP"] != "1")
   require "#{File.dirname(__FILE__) + "/config/config.rb"}"
   if JAVA_OPTS["spark.local.dir"]
     JAVA_OPTS["spark.local.dir"].split(",").map {|x| x.chomp}.each do |path|
-      $stderr.puts "Warmup - Writing random data to #{path}."
+      $stderr.puts "Warmup - Writing random data to #{path}. To skip the warmup set SKIP_WARMUP=1"
       $stderr.puts `mkdir #{path}`
       $stderr.puts `dd if=/dev/random of=#{path}/random bs=#{1024*1024} count=4000`
+      $stderr.puts "Syncing to slaves, this may take a while."
       $stderr.puts `/root/mesos-ec2/copy-dir #{path}`
     end
   else
